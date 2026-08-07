@@ -1,0 +1,23 @@
+# Runtime output
+06 Output/
+
+# Logs
+*.log
+
+# Reports
+*.csv
+*.html
+*.pdf
+
+# PowerShell
+*.psd1.user
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+
+# Obsidian
+.obsidian/workspace.json

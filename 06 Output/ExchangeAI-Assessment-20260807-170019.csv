@@ -1,0 +1,7 @@
+﻿"Check","Category","Status","Severity","Finding","Recommendation","Date"
+"Accepted Domains","Mail Flow","PASS","None","Accepted domain configuration appears healthy.","No action required.","8/7/2026 5:00:17 PM"
+"DKIM","Mail Flow","FAIL","High","DKIM is disabled for 1 domain(s).","Enable DKIM signing for all accepted domains.","8/7/2026 5:00:17 PM"
+"SPF","","WARNING","Low","No custom accepted domains were available for SPF validation.","Add a custom domain before evaluating SPF.","8/7/2026 5:00:18 PM"
+"DMARC","","WARNING","Low","No custom accepted domains were available for DMARC validation.","Add a custom domain before evaluating DMARC.","8/7/2026 5:00:18 PM"
+"SMTP AUTH","","PASS","None","SMTP AUTH is disabled for all mailboxes.","No action required.","8/7/2026 5:00:18 PM"
+"External Forwarding","","PASS","None","No mailbox forwarding detected.","No action required.","8/7/2026 5:00:19 PM"

@@ -1,16 +1,25 @@
 function Get-ExchangeAIConfig {
 
     $RootPath = Split-Path $PSScriptRoot -Parent
-    $ConfigPath = Join-Path $RootPath "ExchangeAI.json"
+    $ConfigPath = Join-Path $RootPath "TenantIQ.json"
 
     if (-not (Test-Path $ConfigPath)) {
-        throw "ExchangeAI configuration file not found: $ConfigPath"
+        throw "TenantIQ configuration file not found: $ConfigPath"
     }
 
     try {
-        Get-Content $ConfigPath -Raw | ConvertFrom-Json
+
+        $Config = Get-Content `
+            -Path $ConfigPath `
+            -Raw |
+            ConvertFrom-Json
+
+        return $Config
+
     }
     catch {
-        throw "Unable to load ExchangeAI configuration: $($_.Exception.Message)"
+
+        throw "Unable to load TenantIQ configuration. $($_.Exception.Message)"
+
     }
 }

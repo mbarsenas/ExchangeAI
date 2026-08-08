@@ -15,11 +15,10 @@ function Show-Banner {
 
     }
     else {
-
-        Write-Host "============================================================" -ForegroundColor Cyan
-        Write-Host "                         $($Config.Name)" -ForegroundColor Cyan
-        Write-Host "              $($Config.Description)" -ForegroundColor Cyan
-        Write-Host "============================================================" -ForegroundColor Cyan
+	Write-Host "============================================================" -ForegroundColor Cyan
+	Write-Host "                     TenantIQ" -ForegroundColor Cyan
+	Write-Host "          Microsoft 365 Assessment Platform" -ForegroundColor Cyan
+	Write-Host "============================================================" -ForegroundColor Cyan
     }
 
     Write-Host ""

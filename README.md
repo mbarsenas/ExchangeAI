@@ -1,42 +1,47 @@
-# ExchangeAI
+# TenantIQ
 
-ExchangeAI is a PowerShell-based Exchange Online assessment engine designed for Microsoft 365 administrators, consultants, and MSPs.
-
-It evaluates Exchange Online configuration, identifies health and security issues, calculates health scores, and generates professional HTML and CSV reports.
+TenantIQ is a PowerShell-based Microsoft 365 assessment platform designed to evaluate tenant configuration, identify health and security issues, and generate professional assessment reports.
 
 ## Current Version
 
-**v0.2**
+**v0.3.0**
 
-## Features
+## Current Module
 
-- Exchange Online health assessment
-- Centralized logging
-- Error handling
-- Overall health scoring
-- Category scoring
-- Executive summary
-- Priority findings
-- HTML assessment report
-- CSV export
-- Print / Export PDF
-- Professional console interface
+### Exchange Online
 
-## Current Health Checks
+TenantIQ currently includes an Exchange Online assessment engine with health checks for:
 
-### Mail Flow
 - Accepted Domains
 - DKIM
 - SPF
 - DMARC
-
-### Security
+- Transport Rules
+- Connectors
+- Remote Domains
 - SMTP AUTH
 - External Forwarding
+- Mailbox Auditing
+- Authentication Policies
+
+## Features
+
+- Microsoft 365 tenant assessment framework
+- Overall health scoring
+- Category scoring
+- Executive summary
+- Priority findings
+- Centralized logging
+- Error handling
+- Assessment history
+- HTML reports
+- CSV export
+- Print / Export PDF
+- Configurable health check registry
 
 ## Requirements
 
-- PowerShell
+- Windows PowerShell or PowerShell 7
 - ExchangeOnlineManagement module
 - Exchange Online administrative permissions
 

@@ -15,7 +15,7 @@ try {
     $DefaultPolicy = $OrgConfig.DefaultAuthenticationPolicy
 
     Write-Host ""
-    Write-Host "========== ExchangeAI Health Check ==========" -ForegroundColor Cyan
+    Write-Host "========== TenantIQ Health Check ==========" -ForegroundColor Cyan
     Write-Host ""
 
     Write-Host "Authentication Policies Found : $($Policies.Count)"
@@ -192,6 +192,6 @@ catch {
         -Status "FAIL" `
         -Severity "High" `
         -Finding $_.Exception.Message `
-        -Recommendation "Review the ExchangeAI log and verify Exchange Online permissions." `
+        -Recommendation "Review the TenantIQ log and verify Exchange Online permissions." `
         -Duration $Stopwatch.Elapsed.TotalSeconds
 }

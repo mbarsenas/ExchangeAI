@@ -1,4 +1,4 @@
 ============================================================
-                         ExchangeAI
-              Exchange Online Assessment Engine
+                         TenantIQ
+              Microsoft 365 Assessment Platform
 ============================================================

@@ -66,7 +66,7 @@ $ExchangeAIHealthChecks = @(
         Severity      = "Medium"
         EstimatedTime = "1 sec"
         Version       = "1.0"
-        Description   = "Reviews Exchange Online remote domain settings for forwarding, TNEF, and default configuration."
+        Description   = "Reviews Exchange Online remote domain settings."
         Script        = "$PSScriptRoot\..\02 Health Checks\Mail Flow\Test-RemoteDomains.ps1"
     }
 
@@ -88,6 +88,16 @@ $ExchangeAIHealthChecks = @(
         Version       = "1.0"
         Description   = "Detects external forwarding rules."
         Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-ExternalForwarding.ps1"
+    }
+
+    @{
+        Name          = "Mailbox Auditing"
+        Category      = "Security"
+        Severity      = "High"
+        EstimatedTime = "2 sec"
+        Version       = "1.0"
+        Description   = "Verifies mailbox auditing is enabled for the organization."
+        Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-MailboxAuditing.ps1"
     }
 
 )

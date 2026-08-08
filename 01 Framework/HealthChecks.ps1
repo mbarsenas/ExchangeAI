@@ -100,4 +100,14 @@ $ExchangeAIHealthChecks = @(
         Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-MailboxAuditing.ps1"
     }
 
+    @{
+        Name          = "Authentication Policies"
+        Category      = "Security"
+        Severity      = "High"
+        EstimatedTime = "2 sec"
+        Version       = "1.0"
+        Description   = "Reviews Exchange Online authentication policies and Basic Authentication settings."
+        Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-AuthenticationPolicies.ps1"
+    }
+
 )

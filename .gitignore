@@ -1,23 +1,20 @@
-# Runtime output
-06 Output/
+# Reports
+06 Output/*.html
+06 Output/*.csv
+
+# Assessment History
+06 Output/AssessmentHistory/
 
 # Logs
-*.log
-
-# Reports
-*.csv
-*.html
-*.pdf
+06 Output/Logs/
 
 # PowerShell
-*.psd1.user
-
-# Windows
-Thumbs.db
-Desktop.ini
+*.psd1
+*.psm1~
 
 # VS Code
 .vscode/
 
-# Obsidian
-.obsidian/workspace.json
+# Windows
+Thumbs.db
+Desktop.ini

@@ -11,45 +11,38 @@ function Start-ExchangeAIHealth {
         -Level INFO
 
     Write-Host ""
-    Write-Host "==========================================================" -ForegroundColor Cyan
+    Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host "               ExchangeAI Health Assessment" -ForegroundColor Cyan
-    Write-Host "==========================================================" -ForegroundColor Cyan
+    Write-Host "============================================================" -ForegroundColor Cyan
 
     try {
 
         $Org = Get-OrganizationConfig -ErrorAction Stop
 
         if ([string]::IsNullOrWhiteSpace($Org.DisplayName)) {
-
             $Tenant = (
                 Get-AcceptedDomain |
                 Where-Object { $_.Default -eq $true }
             ).DomainName
-
         }
         else {
-
             $Tenant = $Org.DisplayName
-
         }
-
-        Write-ExchangeAILog `
-            -Message "Tenant detected: $Tenant" `
-            -Level INFO
 
     }
     catch {
 
         $Tenant = "Unknown"
 
-        Write-ExchangeAILog `
-            -Message "Unable to determine tenant name. $($_.Exception.Message)" `
-            -Level ERROR
     }
 
     Write-Host ""
-    Write-Host "Tenant : $Tenant"
-    Write-Host "Date   : $(Get-Date -Format 'MM/dd/yyyy hh:mm:ss tt')"
+    Write-Host "Tenant : " -NoNewline
+    Write-Host $Tenant -ForegroundColor Cyan
+
+    Write-Host "Date   : " -NoNewline
+    Write-Host (Get-Date -Format "MM/dd/yyyy hh:mm:ss tt") -ForegroundColor Yellow
+
     Write-Host ""
 
     $TotalChecks = $ExchangeAIHealthChecks.Count
@@ -57,30 +50,62 @@ function Start-ExchangeAIHealth {
 
     foreach ($Check in $ExchangeAIHealthChecks) {
 
-        Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
-        Write-Host "[$CurrentCheck/$TotalChecks] $($Check.Name)" -ForegroundColor Yellow
-        Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
+        Clear-Host
+
+        $Percent = [math]::Round(($CurrentCheck / $TotalChecks) * 100)
+
+        $Filled = [math]::Floor($Percent / 5)
+
+        $Bar = ("█" * $Filled).PadRight(20, "░")
+
+        Write-Host ""
+        Write-Host "============================================================" -ForegroundColor Cyan
+        Write-Host "               ExchangeAI Health Assessment" -ForegroundColor Cyan
+        Write-Host "============================================================" -ForegroundColor Cyan
+        Write-Host ""
+
+        Write-Host "Progress" -ForegroundColor Cyan
+        Write-Host "$Bar $Percent%"
+        Write-Host ""
+
+        Write-Host "Current Check" -ForegroundColor Cyan
+        Write-Host "-------------"
+        Write-Host $Check.Name
+        Write-Host ""
+
+        Write-Host "Category" -ForegroundColor Cyan
+        Write-Host "--------"
+        Write-Host $Check.Category
+        Write-Host ""
+
+        Write-Host "Severity" -ForegroundColor Cyan
+        Write-Host "--------"
+        Write-Host $Check.Severity
+        Write-Host ""
+
+        Write-Host "Estimated Time" -ForegroundColor Cyan
+        Write-Host "--------------"
+        Write-Host $Check.EstimatedTime
+        Write-Host ""
+
+        Write-Host "Description" -ForegroundColor Cyan
+        Write-Host "-----------"
+        Write-Host $Check.Description
         Write-Host ""
 
         Write-ExchangeAILog `
-            -Message "Starting health check: $($Check.Name)" `
+            -Message "Running $($Check.Name)" `
             -Level INFO
 
         try {
 
             & $Check.Script
 
-            Write-ExchangeAILog `
-                -Message "Completed health check: $($Check.Name)" `
-                -Level INFO
-
         }
         catch {
 
-            $ErrorMessage = $_.Exception.Message
-
             Write-ExchangeAILog `
-                -Message "Health check failed: $($Check.Name). Error: $ErrorMessage" `
+                -Message $_.Exception.Message `
                 -Level ERROR
 
             $null = New-HealthCheckResult `
@@ -88,41 +113,30 @@ function Start-ExchangeAIHealth {
                 -Category $Check.Category `
                 -Status "FAIL" `
                 -Severity "High" `
-                -Finding "The health check failed to execute." `
-                -Recommendation "Review the ExchangeAI log for detailed error information."
+                -Finding $_.Exception.Message `
+                -Recommendation "Review ExchangeAI log."
 
         }
 
         $CurrentCheck++
+
     }
 
-    Write-Host ""
-    Write-Host "==========================================================" -ForegroundColor Cyan
-    Write-Host "Health Assessment Complete" -ForegroundColor Green
-    Write-Host "==========================================================" -ForegroundColor Cyan
+    Clear-Host
 
-    Write-ExchangeAILog `
-        -Message "ExchangeAI health assessment completed." `
-        -Level INFO
+    Write-Host ""
+    Write-Host "============================================================" -ForegroundColor Green
+    Write-Host "              ExchangeAI Assessment Complete" -ForegroundColor Green
+    Write-Host "============================================================" -ForegroundColor Green
 
     Show-HealthSummary
 
     Write-Host ""
-    Write-Host "Generating HTML assessment report..." -ForegroundColor Cyan
 
-    try {
+    Write-ExchangeAILog `
+        -Message "Generating HTML Report." `
+        -Level INFO
 
-        $null = Export-ExchangeAIHtmlReport
+    Export-ExchangeAIHtmlReport
 
-        Write-ExchangeAILog `
-            -Message "HTML assessment report generated successfully." `
-            -Level INFO
-
-    }
-    catch {
-
-        Write-ExchangeAILog `
-            -Message "HTML report generation failed. $($_.Exception.Message)" `
-            -Level ERROR
-    }
 }

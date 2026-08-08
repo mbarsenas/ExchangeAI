@@ -97,6 +97,7 @@ function Show-HealthSummary {
     if ($Failures.Count -eq 0) {
 
         Write-Host "None" -ForegroundColor Green
+
     }
     else {
 
@@ -144,6 +145,7 @@ function Show-HealthSummary {
     if ($Recommendations.Count -eq 0) {
 
         Write-Host "None" -ForegroundColor Green
+
     }
     else {
 
@@ -154,4 +156,24 @@ function Show-HealthSummary {
 
     Write-Host ""
     Write-Host "==========================================================" -ForegroundColor Cyan
+
+    try {
+
+        Save-AssessmentHistory `
+            -OverallHealth $Score `
+            -Passed $Passed `
+            -Warnings $Warnings `
+            -Failed $Failed
+
+        Write-ExchangeAILog `
+            -Message "Assessment history saved with health score $Score%." `
+            -Level INFO
+
+    }
+    catch {
+
+        Write-ExchangeAILog `
+            -Message "Failed to save assessment history. $($_.Exception.Message)" `
+            -Level ERROR
+    }
 }

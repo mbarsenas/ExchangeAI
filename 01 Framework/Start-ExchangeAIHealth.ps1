@@ -56,7 +56,7 @@ function Start-ExchangeAIHealth {
 
         $Filled = [math]::Floor($Percent / 5)
 
-        $Bar = ("█" * $Filled).PadRight(20, "░")
+        $Bar = ("#" * $Filled).PadRight(20, "-")
 
         Write-Host ""
         Write-Host "============================================================" -ForegroundColor Cyan

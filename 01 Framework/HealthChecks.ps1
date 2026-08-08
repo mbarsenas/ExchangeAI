@@ -51,6 +51,26 @@ $ExchangeAIHealthChecks = @(
     }
 
     @{
+        Name          = "Connectors"
+        Category      = "Mail Flow"
+        Severity      = "Medium"
+        EstimatedTime = "2 sec"
+        Version       = "1.0"
+        Description   = "Reviews inbound and outbound Exchange Online connectors."
+        Script        = "$PSScriptRoot\..\02 Health Checks\Mail Flow\Test-Connectors.ps1"
+    }
+
+    @{
+        Name          = "Remote Domains"
+        Category      = "Mail Flow"
+        Severity      = "Medium"
+        EstimatedTime = "1 sec"
+        Version       = "1.0"
+        Description   = "Reviews Exchange Online remote domain settings for forwarding, TNEF, and default configuration."
+        Script        = "$PSScriptRoot\..\02 Health Checks\Mail Flow\Test-RemoteDomains.ps1"
+    }
+
+    @{
         Name          = "SMTP AUTH"
         Category      = "Security"
         Severity      = "Medium"
@@ -69,15 +89,5 @@ $ExchangeAIHealthChecks = @(
         Description   = "Detects external forwarding rules."
         Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-ExternalForwarding.ps1"
     }
-
-	@{
-		Name          = "Connectors"
-		Category      = "Mail Flow"
-		Severity      = "Medium"
-		EstimatedTime = "2 sec"
-		Version       = "1.0"
-		Description   = "Reviews inbound and outbound Exchange Online connectors."
-		Script        = "$PSScriptRoot\..\02 Health Checks\Mail Flow\Test-Connectors.ps1"
-	}
 
 )

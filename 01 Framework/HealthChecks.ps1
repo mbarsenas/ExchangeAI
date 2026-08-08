@@ -110,4 +110,14 @@ $ExchangeAIHealthChecks = @(
         Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-AuthenticationPolicies.ps1"
     }
 
+    @{
+        Name          = "Anti-Spam Policies"
+        Category      = "Security"
+        Severity      = "High"
+        EstimatedTime = "2 sec"
+        Version       = "1.0"
+        Description   = "Reviews Exchange Online anti-spam policies and recommended settings."
+        Script        = "$PSScriptRoot\..\02 Health Checks\Security\Test-AntiSpam.ps1"
+    }
+
 )
